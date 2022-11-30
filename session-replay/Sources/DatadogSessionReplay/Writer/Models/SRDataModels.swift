@@ -125,7 +125,7 @@ internal struct SRShapeStyle: Codable, Hashable {
 }
 
 /// Schema of all properties of a ShapeWireframe.
-internal struct SRShapeWireframe: Codable, Hashable {
+public struct SRShapeWireframe: Codable, Hashable {
     /// The border properties of this wireframe. The default value is null (no-border).
     internal let border: SRShapeBorder?
 
@@ -241,7 +241,7 @@ internal struct SRTextStyle: Codable, Hashable {
 }
 
 /// Schema of all properties of a TextWireframe.
-internal struct SRTextWireframe: Codable, Hashable {
+public struct SRTextWireframe: Codable, Hashable {
     /// The border properties of this wireframe. The default value is null (no-border).
     internal let border: SRShapeBorder?
 
@@ -291,13 +291,13 @@ internal struct SRTextWireframe: Codable, Hashable {
 }
 
 /// Schema of a Wireframe type.
-internal enum SRWireframe: Codable {
+public enum SRWireframe: Codable {
     case shapeWireframe(value: SRShapeWireframe)
     case textWireframe(value: SRTextWireframe)
 
     // MARK: - Codable
 
-    internal func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         // Encode only the associated value, without encoding enum case
         var container = encoder.singleValueContainer()
 
@@ -309,7 +309,7 @@ internal enum SRWireframe: Codable {
         }
     }
 
-    internal init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         // Decode enum case from associated value
         let container = try decoder.singleValueContainer()
 

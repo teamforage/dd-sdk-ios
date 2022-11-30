@@ -18,12 +18,12 @@ public struct SessionReplayConfiguration {
     /// the target instance of Datadog SDK.
     public var customUploadURL: URL?
     
-    public var additionalNodeRecorders: NodeRecorder[]
+    public var additionalNodeRecorders: [NodeRecorder]
 
     public init(
         privacy: SessionReplayPrivacy = .maskAll,
         customUploadURL: URL? = nil,
-        additionalNodeRecorders: NodeRecorder[] = []
+        additionalNodeRecorders: [NodeRecorder] = []
     ) {
         self.privacy = privacy
         self.customUploadURL = customUploadURL

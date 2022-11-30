@@ -19,13 +19,13 @@ internal protocol Recording {
 /// It instruments running application by observing current window(s) and
 /// captures intermediate representation of the view hierarchy. This representation
 /// is later passed to `Processor` and turned into wireframes uploaded to the BE.
-internal class Recorder: Recording {
+public class Recorder: Recording {
     /// The context of recording next snapshot.
-    struct Context: Equatable {
+    public struct Context: Equatable {
         /// The time of requesting this snapshot.
         let date: Date
         /// The content recording policy from the moment of requesting snapshot.
-        let privacy: SessionReplayPrivacy
+        public let privacy: SessionReplayPrivacy
         /// The RUM context from the moment of requesting snapshot.
         let rumContext: RUMContext
     }
@@ -56,7 +56,7 @@ internal class Recorder: Recording {
             scheduler: MainThreadScheduler(interval: 0.1),
             snapshotProducer: WindowSnapshotProducer(
                 windowObserver: KeyWindowObserver(),
-                snapshotBuilder: ViewTreeSnapshotBuilder(configuration.additionalNodeRecoreders)
+                snapshotBuilder: ViewTreeSnapshotBuilder(additionalNodeRecorders: configuration.additionalNodeRecorders)
             ),
             snapshotProcessor: processor
         )

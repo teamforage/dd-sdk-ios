@@ -10,17 +10,17 @@ import UIKit
 /// Builds `ViewTreeSnapshot` for given root view.
 ///
 /// Note: This builder is used by `Recorder` on the main thread.
-internal struct ViewTreeSnapshotBuilder {
+public struct ViewTreeSnapshotBuilder {
     /// The context of building current snapshot.
-    struct Context {
+    public struct Context {
         /// The context of the Recorder.
-        let recorder: Recorder.Context
+        public let recorder: Recorder.Context
         /// The coordinate space to convert node positions to.
-        let coordinateSpace: UICoordinateSpace
+        public let coordinateSpace: UICoordinateSpace
         /// Generates stable IDs for traversed views.
-        let ids: NodeIDGenerator
+        public let ids: NodeIDGenerator
         /// Masks text in recorded nodes.
-        let textObfuscator: TextObfuscator
+        public let textObfuscator: TextObfuscator
     }
 
     /// An array of enabled node recorders.
@@ -96,7 +96,7 @@ internal struct ViewTreeSnapshotBuilder {
 }
 
 extension ViewTreeSnapshotBuilder {
-    init(additionalNodeRecorders: NodeRecorder[]) {
+    init(additionalNodeRecorders: [NodeRecorder]) {
         self.init(
             nodeRecorders: [
                 UIViewRecorder(),

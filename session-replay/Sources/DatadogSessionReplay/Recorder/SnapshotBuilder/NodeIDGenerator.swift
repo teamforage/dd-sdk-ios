@@ -9,7 +9,7 @@ import UIKit
 
 /// Single unique ID of a view in view-tree hierarchy.
 /// It is used to mark `UIViews` which correspond to single wireframe in the replay.
-internal typealias NodeID = Int64
+public typealias NodeID = Int64
 
 /// Pair of unique IDs of a single view in view-tree hierarchy.
 /// It is used to mark `UIViews` which correspond to two wireframes in the replay.
@@ -21,7 +21,7 @@ internal typealias NodeID2 = (NodeID, NodeID)
 /// IDs for the same instance of `UIView` will always give the same values.
 ///
 /// **Note**: All `NodeIDGenerator` APIs must be called on the main thread.
-internal final class NodeIDGenerator {
+public final class NodeIDGenerator {
     /// Upper limit for generated IDs.
     /// After `currentID` reaches this limit, it will start from `0`.
     private let maxID: NodeID
@@ -36,7 +36,7 @@ internal final class NodeIDGenerator {
     /// Returns single `NodeID` for given instance of `UIView`.
     /// - Parameter view: the `UIView` object
     /// - Returns: the `NodeID` of queried instance
-    func nodeID(for view: UIView) -> NodeID {
+    public func nodeID(for view: UIView) -> NodeID {
         if let currentID = view.nodeID {
             return currentID
         } else {

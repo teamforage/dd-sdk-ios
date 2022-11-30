@@ -32,7 +32,7 @@ internal struct ViewTreeSnapshot {
 ///
 /// **Note:** The purpose of this structure is to be lightweight and create minimal overhead when the view-tree
 /// is captured on the main thread (the `Recorder` constantly creates `Nodes` for views residing in the hierarchy).
-internal struct Node {
+public struct Node {
     /// Attributes of the `UIView` that this node was created for.
     let viewAttributes: ViewAttributes
 
@@ -47,37 +47,37 @@ internal struct Node {
 ///
 /// It is used by the `Recorder` to capture view attributes on the main thread.
 /// It enforces immutability for later (thread safe) access from background queue in `Processor`.
-internal struct ViewAttributes: Equatable {
+public struct ViewAttributes: Equatable {
     /// The view's `frame`, in VTS's root view's coordinate space (usually, the screen coordinate space).
-    let frame: CGRect
+    public let frame: CGRect
 
     /// Original view's `.backgorundColor`.
-    let backgroundColor: CGColor?
+    public let backgroundColor: CGColor?
 
     /// Original view's `layer.backgorundColor`.
-    let layerBorderColor: CGColor?
+    public let layerBorderColor: CGColor?
 
     /// Original view's `layer.backgorundColor`.
-    let layerBorderWidth: CGFloat
+    public let layerBorderWidth: CGFloat
 
     /// Original view's `layer.cornerRadius`.
-    let layerCornerRadius: CGFloat
+    public let layerCornerRadius: CGFloat
 
     /// Original view's `.alpha` (between `0.0` and `1.0`).
-    let alpha: CGFloat
+    public let alpha: CGFloat
 
     /// Original view's `.intrinsicContentSize`.
-    let intrinsicContentSize: CGSize
+    public let intrinsicContentSize: CGSize
 
     /// If the view is visible (considering: alpha + hidden state + non-zero frame).
     ///
     /// Example: A can be not visible if it has `.zero` size or it is fully transparent.
-    let isVisible: Bool
+    public let isVisible: Bool
 
     /// If the view has any visible appearance (considering: background color + border style)
     ///
     /// Example: A view might have no appearance if it has `0` border width and transparent fill color.
-    let hasAnyAppearance: Bool
+    public let hasAnyAppearance: Bool
 }
 
 extension ViewAttributes {
@@ -128,7 +128,7 @@ extension ViewAttributes {
 ///
 /// Both `AmbiguousElement` and `SpecificElement` provide an implementation of `NodeWireframesBuilder` which describes
 /// how to construct SR wireframes for UI elements they refer to. No builder is provided for `InvisibleElement` and `UnknownElement`.
-internal protocol NodeSemantics {
+public protocol NodeSemantics {
     /// The severity of this semantic.
     ///
     /// While querying certain `view` with an array of supported `NodeRecorders` each recorder can spot different semantics of
@@ -163,15 +163,15 @@ internal struct UnknownElement: NodeSemantics {
 /// A semantics of an UI element that is either `UIView` or one of its known subclasses. This semantics mean that the element
 /// has no visual appearance that can be presented in SR (e.g. a `UILabel` with no text, no border and fully transparent color).
 /// Nodes with this semantics can be safely ignored in `Recorder` or in `Processor`.
-internal struct InvisibleElement: NodeSemantics {
-    static let importance: Int = 0
-    let wireframesBuilder: NodeWireframesBuilder? = nil
+public struct InvisibleElement: NodeSemantics {
+    public static let importance: Int = 0
+    public let wireframesBuilder: NodeWireframesBuilder? = nil
 
     /// Use `InvisibleElement.constant` instead.
     private init () {}
 
     /// A constant value of `InvisibleElement` semantics.
-    static let constant = InvisibleElement()
+    public static let constant = InvisibleElement()
 }
 
 /// A semantics of an UI element that is of `UIView` type. This semantics mean that the element has visual appearance in SR, but
@@ -184,7 +184,11 @@ internal struct AmbiguousElement: NodeSemantics {
 /// A semantics of an UI element that is one of `UIView` subclasses. This semantics mean that we know its full identity along with set of
 /// subclass-specific attributes that will be used to render it in SR (e.g. all base `UIView` attributes plus the text in `UILabel` or the
 /// "on" / "off" state of `UISwitch` control).
-internal struct SpecificElement: NodeSemantics {
-    static let importance: Int = .max
-    let wireframesBuilder: NodeWireframesBuilder?
+public struct SpecificElement: NodeSemantics {
+    public static let importance: Int = .max
+    public let wireframesBuilder: NodeWireframesBuilder?
+    
+    public init (wireframesBuilder: NodeWireframesBuilder?) {
+        self.wireframesBuilder = wireframesBuilder
+    }
 }
