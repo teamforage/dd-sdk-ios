@@ -96,7 +96,7 @@ internal struct ViewTreeSnapshotBuilder {
 }
 
 extension ViewTreeSnapshotBuilder {
-    init() {
+    init(additionalNodeRecorders: NodeRecorder[]) {
         self.init(
             nodeRecorders: [
                 UIViewRecorder(),
@@ -104,7 +104,7 @@ extension ViewTreeSnapshotBuilder {
                 UIImageViewRecorder(),
                 UITextFieldRecorder(),
                 UISwitchRecorder(),
-            ]
+            ] + additionalNodeRecorders
         )
     }
 }

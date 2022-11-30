@@ -17,13 +17,17 @@ public struct SessionReplayConfiguration {
     /// Defaults to `nil` which makes the Session Replay upload data to Datadog Site configured in
     /// the target instance of Datadog SDK.
     public var customUploadURL: URL?
+    
+    public var additionalNodeRecorders: NodeRecorder[]
 
     public init(
         privacy: SessionReplayPrivacy = .maskAll,
-        customUploadURL: URL? = nil
+        customUploadURL: URL? = nil,
+        additionalNodeRecorders: NodeRecorder[] = []
     ) {
         self.privacy = privacy
         self.customUploadURL = customUploadURL
+        self.additionalNodeRecorders = additionalNodeRecorders
     }
 }
 

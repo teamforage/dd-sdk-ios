@@ -56,7 +56,7 @@ internal class Recorder: Recording {
             scheduler: MainThreadScheduler(interval: 0.1),
             snapshotProducer: WindowSnapshotProducer(
                 windowObserver: KeyWindowObserver(),
-                snapshotBuilder: ViewTreeSnapshotBuilder()
+                snapshotBuilder: ViewTreeSnapshotBuilder(configuration.additionalNodeRecoreders)
             ),
             snapshotProcessor: processor
         )
