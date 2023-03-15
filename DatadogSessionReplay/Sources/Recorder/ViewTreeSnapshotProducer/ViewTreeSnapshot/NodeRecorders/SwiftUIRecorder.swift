@@ -7,11 +7,11 @@
 import UIKit
 import Vision
 
-extension UIViewController {
+extension UIView {
     func takeSnapshot() -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(bounds: view.bounds)
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
         return renderer.image { rendererContext in
-            view.layer.render(in: rendererContext.cgContext)
+            layer.render(in: rendererContext.cgContext)
         }
     }
 }
