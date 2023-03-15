@@ -16,7 +16,7 @@ extension UIView {
     }
 }
 
-internal class SwiftUIRecorder: NodeRecorder {
+internal class SwiftUISnapshotRecorder: NodeRecorder {
 
     func semantics(of view: UIView, with attributes: ViewAttributes, in context: ViewTreeRecordingContext) -> NodeSemantics? {
         guard String(describing: view).contains("SwiftUI") else {

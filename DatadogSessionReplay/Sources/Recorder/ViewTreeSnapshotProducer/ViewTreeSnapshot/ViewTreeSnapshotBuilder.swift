@@ -54,7 +54,8 @@ extension ViewTreeSnapshotBuilder {
 
 /// An arrays of default node recorders executed for the root view-tree hierarchy.
 internal let defaultNodeRecorders: [NodeRecorder] = [
-    SwiftUIRecorder(),
+    SwiftUIFrameRecorder(),
+    SwiftUISnapshotRecorder(),
     UIViewRecorder(),
     UILabelRecorder(),
     UIImageViewRecorder(),
