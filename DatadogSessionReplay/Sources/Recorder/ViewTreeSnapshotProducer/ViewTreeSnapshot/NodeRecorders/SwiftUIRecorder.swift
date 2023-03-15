@@ -19,13 +19,9 @@ extension UIViewController {
 internal class SwiftUIRecorder: NodeRecorder {
 
     func semantics(of view: UIView, with attributes: ViewAttributes, in context: ViewTreeRecordingContext) -> NodeSemantics? {
-        guard let hvc = (view as? UIWindow)?.rootViewController else {
-            return nil
-        }
         guard String(describing: hvc).contains("SwiftUI") else {
             return nil
         }
-
         guard let snapshot = hvc.takeSnapshot() else {
             return nil
         }
