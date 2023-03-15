@@ -8,10 +8,25 @@ import UIKit
 import Vision
 
 extension UIView {
-    func takeSnapshot() -> UIImage? {
+    func snapshot(replacingTransparentWithWhite: Bool = false) -> UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
+        let image = renderer.image { rendererContext in
             layer.render(in: rendererContext.cgContext)
+        }
+
+        if replacingTransparentWithWhite {
+            // Create a new image context to modify the image data
+            UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+            let context = UIGraphicsGetCurrentContext()!
+            context.setFillColor(UIColor.white.cgColor)
+            context.fill(CGRect(origin: .zero, size: image.size))
+            // Draw the original image on top, replacing transparent parts with white
+            image.draw(at: .zero, blendMode: .normal, alpha: 1.0)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage
+        } else {
+            return image
         }
     }
 }
@@ -22,14 +37,14 @@ internal class SwiftUISnapshotRecorder: NodeRecorder {
         guard String(describing: view).contains("SwiftUI") else {
             return nil
         }
-        guard let snapshot = view.takeSnapshot() else {
+        guard let snapshot = view.snapshot(replacingTransparentWithWhite: true) else {
             return nil
         }
         if #available(iOS 13.0, *) {
             let builder = SwiftUIWireframesBuilder(
                 wireframeIDs: context.ids.nodeIDs(64, for: view),
                 attributes: attributes,
-                wireframeRect: attributes.frame,
+                wireframeRect: view.frame,
                 snapshot: snapshot
             )
             let node = Node(viewAttributes: attributes, wireframesBuilder: builder)
@@ -50,10 +65,10 @@ internal class SwiftUIWireframesBuilder: NodeWireframesBuilder {
 
     let snapshot: UIImage
 
-    let imageRequestHandler: VNImageRequestHandler
+    let imageRequestHandler: VNImageRequestHandler?
 
-    let rectDetectRequest: VNDetectRectanglesRequest
-    let textDetectRequest: VNRecognizeTextRequest
+    let rectDetectRequest: VNDetectRectanglesRequest?
+    let textDetectRequest: VNRecognizeTextRequest?
 
     internal init(
         wireframeIDs: [WireframeID],
@@ -65,25 +80,30 @@ internal class SwiftUIWireframesBuilder: NodeWireframesBuilder {
         self.attributes = attributes
         self.snapshot = snapshot
         self.wireframeRect = wireframeRect
-        self.imageRequestHandler = VNImageRequestHandler(
-            cgImage: snapshot.cgImage!,
-            options: [:]
-        )
+        if let cgImage = snapshot.cgImage {
+            self.imageRequestHandler = VNImageRequestHandler(
+                cgImage: cgImage,
+                options: [:]
+            )
+        } else {
+            self.imageRequestHandler = nil
+        }
+
         self.rectDetectRequest = VNDetectRectanglesRequest()
-        rectDetectRequest.maximumObservations = 16
-        rectDetectRequest.minimumConfidence = 0.9
-        rectDetectRequest.minimumAspectRatio = 0
-        rectDetectRequest.maximumAspectRatio = 1
-        rectDetectRequest.minimumSize = 0.1
+        rectDetectRequest?.maximumObservations = 16
+        rectDetectRequest?.minimumConfidence = 0.9
+        rectDetectRequest?.minimumAspectRatio = 0
+        rectDetectRequest?.maximumAspectRatio = 1
+        rectDetectRequest?.minimumSize = 0.1
 
         self.textDetectRequest = VNRecognizeTextRequest()
 
-        try? imageRequestHandler.perform([rectDetectRequest, textDetectRequest])
+        try? imageRequestHandler?.perform([textDetectRequest].compactMap { $0 })
     }
 
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
         var index = 0
-        let rects = rectDetectRequest.results.map {
+        let rects = rectDetectRequest?.results.map {
             $0.map { (observation: VNRectangleObservation) -> SRWireframe in
                 let boundingBox = observation.boundingBox
                 let frame = CGRect(
@@ -107,15 +127,15 @@ internal class SwiftUIWireframesBuilder: NodeWireframesBuilder {
             }
         } ?? []
 
-        let texts = textDetectRequest.results.map {
+        let texts = textDetectRequest?.results.map {
             $0.compactMap { (observation: VNRecognizedTextObservation) -> SRWireframe? in
                 guard let candidate = observation.topCandidates(1).first else { return nil }
                 let stringRange = candidate.string.startIndex..<candidate.string.endIndex
                 let boxObservation = try? candidate.boundingBox(for: stringRange)
                 let boundingBox = boxObservation?.boundingBox ?? .zero
                 let frame = CGRect(
-                    x: boundingBox.origin.x * attributes.frame.width,
-                    y: (1 - boundingBox.origin.y) * attributes.frame.height - boundingBox.size.height * attributes.frame.height,
+                    x: boundingBox.origin.x * attributes.frame.width + attributes.frame.origin.x,
+                    y: (1 - boundingBox.origin.y) * attributes.frame.height - boundingBox.size.height * attributes.frame.height + attributes.frame.origin.y,
                     width: boundingBox.size.width * attributes.frame.width,
                     height: boundingBox.size.height * attributes.frame.height
                 )

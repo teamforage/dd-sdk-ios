@@ -11,10 +11,12 @@ internal class SwiftUIFrameRecorder: NodeRecorder {
     private lazy var subtreeRecorder: ViewTreeRecorder = ViewTreeRecorder(nodeRecorders: [snapshotRecorder])
 
     func semantics(of view: UIView, with attributes: ViewAttributes, in context: ViewTreeRecordingContext) -> NodeSemantics? {
-        let classDescription = String(describing: view)
-        guard classDescription.contains("SwiftUI") else {
+        let classDescription = view.description
+        guard classDescription.contains("SwiftUI") && !classDescription.contains("DrawingView") else {
             return nil
         }
+        // SwiftUI._UIGraphicsView
+        
         let builder = SwiftUIFrameWireframesBuilder(
             wireframeIDs: context.ids.nodeIDs(1, for: view),
             attributes: attributes,
@@ -40,12 +42,9 @@ internal struct SwiftUIFrameWireframesBuilder: NodeWireframesBuilder {
 
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
         return [
-            builder.createTextWireframe(
+            builder.createShapeWireframe(
                 id: wireframeIDs[0],
                 frame: wireframeRect,
-                text: text,
-                borderColor: UIColor.black.cgColor,
-                borderWidth: 2,
                 backgroundColor: backgroundColor?.cgColor
             )
         ]
