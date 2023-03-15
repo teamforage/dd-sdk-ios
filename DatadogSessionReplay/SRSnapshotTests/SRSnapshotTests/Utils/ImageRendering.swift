@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import Framer
 @testable import DatadogSessionReplay
 
 /// Renders application window into image.
