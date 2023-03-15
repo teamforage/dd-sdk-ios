@@ -19,7 +19,8 @@ internal class SwiftUIFrameRecorder: NodeRecorder {
             wireframeIDs: context.ids.nodeIDs(1, for: view),
             attributes: attributes,
             wireframeRect: view.frame,
-            backgroundColor: view.backgroundColor
+            backgroundColor: view.backgroundColor,
+            text: classDescription
         )
         let node = Node(viewAttributes: attributes, wireframesBuilder: builder)
         return SpecificElement(subtreeStrategy: .record, nodes: [node])
@@ -35,11 +36,14 @@ internal struct SwiftUIFrameWireframesBuilder: NodeWireframesBuilder {
 
     let backgroundColor: UIColor?
 
+    let text: String
+
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
         return [
-            builder.createShapeWireframe(
+            builder.createTextWireframe(
                 id: wireframeIDs[0],
                 frame: wireframeRect,
+                text: text,
                 borderColor: UIColor.black.cgColor,
                 borderWidth: 2,
                 backgroundColor: backgroundColor?.cgColor
