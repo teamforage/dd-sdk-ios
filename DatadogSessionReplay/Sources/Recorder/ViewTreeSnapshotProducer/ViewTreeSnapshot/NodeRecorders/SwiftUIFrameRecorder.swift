@@ -7,22 +7,21 @@
 import UIKit
 
 internal class SwiftUIFrameRecorder: NodeRecorder {
-    private let snapshotRecorder: SwiftUISnapshotRecorder = SwiftUISnapshotRecorder()
-    private lazy var subtreeRecorder: ViewTreeRecorder = ViewTreeRecorder(nodeRecorders: [snapshotRecorder])
-
     func semantics(of view: UIView, with attributes: ViewAttributes, in context: ViewTreeRecordingContext) -> NodeSemantics? {
         let classDescription = view.description
-        guard classDescription.contains("SwiftUI") && !classDescription.contains("DrawingView") else {
+        guard classDescription.contains("SwiftUI")
+                && !classDescription.contains("DrawingView")
+                && !view.layer.description.contains("SwiftUI.ImageLayer")
+        else {
             return nil
         }
         // SwiftUI._UIGraphicsView
-        
         let builder = SwiftUIFrameWireframesBuilder(
             wireframeIDs: context.ids.nodeIDs(1, for: view),
             attributes: attributes,
             wireframeRect: view.frame,
             backgroundColor: view.backgroundColor,
-            text: classDescription
+            cornerRadius: view.layer.cornerRadius
         )
         let node = Node(viewAttributes: attributes, wireframesBuilder: builder)
         return SpecificElement(subtreeStrategy: .record, nodes: [node])
@@ -38,14 +37,15 @@ internal struct SwiftUIFrameWireframesBuilder: NodeWireframesBuilder {
 
     let backgroundColor: UIColor?
 
-    let text: String
+    let cornerRadius: CGFloat
 
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
         return [
             builder.createShapeWireframe(
                 id: wireframeIDs[0],
                 frame: wireframeRect,
-                backgroundColor: backgroundColor?.cgColor
+                backgroundColor: backgroundColor?.cgColor,
+                cornerRadius: cornerRadius
             )
         ]
     }
