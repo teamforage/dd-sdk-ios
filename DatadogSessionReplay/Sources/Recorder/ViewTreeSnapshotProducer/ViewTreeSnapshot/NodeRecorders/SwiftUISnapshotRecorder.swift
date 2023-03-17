@@ -32,103 +32,156 @@ extension UIImage {
     }
 }
 
+@available(iOS 13.0, *)
 internal class SwiftUISnapshotRecorder: NodeRecorder {
+
+    let swiftUIViewDetailsProvider = SwiftUIViewDetailsProvider()
 
     func semantics(of view: UIView, with attributes: ViewAttributes, in context: ViewTreeRecordingContext) -> NodeSemantics? {
         guard String(describing: view).contains("SwiftUI") else {
             return nil
         }
-        guard let snapshot = view.snapshot() else {
-            return nil
+        let wireframeID = context.ids.nodeID(for: view)
+        DispatchQueue.main.async { [weak self] in
+            if let snapshot = view.snapshot() {
+                self?.swiftUIViewDetailsProvider.process(id: wireframeID, snapshot: snapshot)
+            }
         }
-        if #available(iOS 13.0, *) {
-            let builder = SwiftUIWireframesBuilder(
-                wireframeIDs: context.ids.nodeIDs(64, for: view),
-                attributes: attributes,
-                wireframeRect: view.frame,
-                snapshot: snapshot
-            )
-            let node = Node(viewAttributes: attributes, wireframesBuilder: builder)
-            return SpecificElement(subtreeStrategy: .ignore, nodes: [node])
-        } else {
-            return nil
-        }
+        let builder = SwiftUIWireframesBuilder(
+            wireframeID: wireframeID,
+            attributes: attributes,
+            wireframeRect: view.frame,
+            swiftUIViewDetailsProvider: swiftUIViewDetailsProvider
+        )
+        let node = Node(viewAttributes: attributes, wireframesBuilder: builder)
+        return SpecificElement(subtreeStrategy: .ignore, nodes: [node])
     }
 }
 
 @available(iOS 13.0, *)
 internal class SwiftUIWireframesBuilder: NodeWireframesBuilder {
-    let wireframeIDs: [WireframeID]
+    let wireframeID: WireframeID
     /// Attributes of the `UIView`.
     let attributes: ViewAttributes
 
     let wireframeRect: CGRect
 
-    let snapshot: UIImage
-    let fontColor: UIColor
-
-    let imageRequestHandler: VNImageRequestHandler?
-    let textDetectRequest: VNRecognizeTextRequest?
+    let swiftUIViewDetailsProvider: SwiftUIViewDetailsProvider
 
     internal init(
-        wireframeIDs: [WireframeID],
+        wireframeID: WireframeID,
         attributes: ViewAttributes,
         wireframeRect: CGRect,
-        snapshot: UIImage
+        swiftUIViewDetailsProvider: SwiftUIViewDetailsProvider
     ) {
-        self.wireframeIDs = wireframeIDs
+        self.wireframeID = wireframeID
         self.attributes = attributes
-        self.snapshot = snapshot
         self.wireframeRect = wireframeRect
-        self.fontColor = snapshot.medianColor() ?? UIColor.black
-        if let cgImage = snapshot.replaceTransparentWith(fontColor.inverted()).cgImage {
-            self.imageRequestHandler = VNImageRequestHandler(
-                cgImage: cgImage,
-                options: [:]
-            )
-        } else {
-            self.imageRequestHandler = nil
-        }
-
-        self.textDetectRequest = VNRecognizeTextRequest()
-
-        try? imageRequestHandler?.perform([textDetectRequest].compactMap { $0 })
+        self.swiftUIViewDetailsProvider = swiftUIViewDetailsProvider
     }
 
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
-        var index = 0
-
-        let texts = textDetectRequest?.results.map {
-            $0.compactMap { (observation: VNRecognizedTextObservation) -> SRWireframe? in
-                guard let candidate = observation.topCandidates(1).first else { return nil }
-                let stringRange = candidate.string.startIndex..<candidate.string.endIndex
-                let boxObservation = try? candidate.boundingBox(for: stringRange)
-                let boundingBox = boxObservation?.boundingBox ?? .zero
-                let frame = CGRect(
-                    x: boundingBox.origin.x * attributes.frame.width + attributes.frame.origin.x,
-                    y: (1 - boundingBox.origin.y) * attributes.frame.height - boundingBox.size.height * attributes.frame.height + attributes.frame.origin.y,
-                    width: boundingBox.size.width * attributes.frame.width,
-                    height: boundingBox.size.height * attributes.frame.height
-                )
-                index += 1
-                return builder.createTextWireframe(
-                    id: wireframeIDs[index],
-                    frame: frame,
-                    text: candidate.string,
+        let details = swiftUIViewDetailsProvider.getDetails(id: wireframeID)
+        if let details = details, !details.text.isEmpty {
+            return [
+                builder.createTextWireframe(
+                    id: wireframeID,
+                    frame: attributes.frame,
+                    text: details.text,
                     textAlignment: .init(horizontal: .center, vertical: .center),
-                    textColor: fontColor.cgColor,
-                    font: UIFont.systemFont(ofSize: frame.height),
+                    textColor: details.textColor.uiColor.cgColor,
+                    font: UIFont.systemFont(ofSize: attributes.frame.height - 1),
                     fontScalingEnabled: true
                 )
-            }
-        } ?? []
-
-        return [
-            builder.createShapeWireframe(id: wireframeIDs[0], frame: wireframeRect, attributes: attributes)
-        ] + texts
+            ]
+        } else {
+            return [
+                builder.createShapeWireframe(
+                    id: wireframeID,
+                    frame: attributes.frame,
+                    backgroundColor: UIColor.lightText.cgColor,
+                    cornerRadius: 4
+                )
+            ]
+        }
     }
 }
 
+
+import Dispatch
+
+@available(iOS 13.0, *)
+class SwiftUIViewDetailsProvider {
+    enum DataLoadingStatus: Encodable {
+        case loaded(_ details: ViewDetails), loading
+    }
+    struct ViewDetails: Encodable {
+        let text: String
+        let textColor: Color
+    }
+    private var cache: Cache<Int64, DataLoadingStatus>
+    private let queue = DispatchQueue(label: "com.example.snapshotProcessor", qos: .background)
+
+    internal init(
+        cache: Cache<Int64, DataLoadingStatus> = .init()
+    ) {
+        self.cache = cache
+    }
+
+    func process(id: Int64, snapshot: UIImage) {
+        switch cache[id] {
+        case .none:
+            cache[id] = .loading
+            queue.async { [weak self] in
+                self?.calculate(hash: id, snapshot: snapshot)
+            }
+        case .some:
+            return
+        }
+    }
+
+    func getDetails(id: Int64) -> ViewDetails? {
+        switch cache[id] {
+        case let .loaded(details):
+            return details
+        default:
+            return nil
+        }
+    }
+
+    private func calculate(hash: Int64, snapshot: UIImage) {
+        autoreleasepool {
+            let textColor = snapshot.medianColor() ?? UIColor.black
+            let textDetectRequest = VNRecognizeTextRequest()
+            let imageRequestHandler: VNImageRequestHandler?
+            if let cgImage = snapshot.replaceTransparentWith(textColor.inverted()).cgImage {
+                imageRequestHandler = VNImageRequestHandler(
+                    cgImage: cgImage,
+                    options: [:]
+                )
+            } else {
+                imageRequestHandler = nil
+            }
+            try? imageRequestHandler?.perform([textDetectRequest].compactMap { $0 })
+            let text = textDetectRequest.results?.first.map { (observation: VNRecognizedTextObservation) -> String in
+                observation.topCandidates(1).first?.string ?? ""
+            }
+            cache[hash] = .loaded(.init(text: text ?? "", textColor: Color(uiColor: textColor)))
+        }
+    }
+}
+
+struct Color : Codable {
+    var red : CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0, alpha: CGFloat = 0.0
+
+    var uiColor : UIColor {
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    init(uiColor : UIColor) {
+        uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+    }
+}
 
 import UIKit
 
