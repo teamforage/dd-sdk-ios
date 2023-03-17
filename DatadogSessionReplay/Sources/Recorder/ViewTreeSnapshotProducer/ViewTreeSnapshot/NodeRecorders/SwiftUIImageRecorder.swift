@@ -53,7 +53,7 @@ internal struct SwiftUIImageWireframesBuilder: NodeWireframesBuilder {
     func buildWireframes(with builder: WireframesBuilder) -> [SRWireframe] {
         return [
             builder.createImageWireframe(
-                base64: imageProvider.contentBase64String(of: snapshot),
+                base64: imageProvider.contentBase64String(of: snapshot, customID: "\(wireframeIDs[0])"),
                 id: wireframeIDs[0],
                 frame: wireframeRect
             )

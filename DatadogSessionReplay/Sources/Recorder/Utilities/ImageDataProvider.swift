@@ -29,7 +29,8 @@ internal class ImageDataProvider {
 
     func contentBase64String(
         of image: UIImage?,
-        tintColor: UIColor? = nil
+        tintColor: UIColor? = nil,
+        customID: String? = nil
     ) -> String? {
         autoreleasepool {
             guard var image = image else {
@@ -40,7 +41,10 @@ internal class ImageDataProvider {
             }
 
             var identifier = image.srIdentifier
-            if let tintColorIdentifier = tintColor?.srIdentifier {
+            if let customID = customID {
+                identifier = customID
+            }
+            else if let tintColorIdentifier = tintColor?.srIdentifier {
                 identifier += tintColorIdentifier
             }
             let dataLoadingStaus = cache[identifier]

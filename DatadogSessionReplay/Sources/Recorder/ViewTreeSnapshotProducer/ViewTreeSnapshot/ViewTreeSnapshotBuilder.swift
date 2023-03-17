@@ -44,15 +44,24 @@ internal struct ViewTreeSnapshotBuilder {
 
 extension ViewTreeSnapshotBuilder {
     init() {
-        self.init(
-            viewTreeRecorder: ViewTreeRecorder(nodeRecorders: defaultNodeRecorders),
-            idsGenerator: NodeIDGenerator(),
-            textObfuscator: TextObfuscator()
-        )
+        if #available(iOS 13.0, *) {
+            self.init(
+                viewTreeRecorder: ViewTreeRecorder(nodeRecorders: defaultNodeRecorders),
+                idsGenerator: NodeIDGenerator(),
+                textObfuscator: TextObfuscator()
+            )
+        } else {
+            self.init(
+                viewTreeRecorder: ViewTreeRecorder(nodeRecorders: []),
+                idsGenerator: NodeIDGenerator(),
+                textObfuscator: TextObfuscator()
+            )
+        }
     }
 }
 
 /// An arrays of default node recorders executed for the root view-tree hierarchy.
+@available(iOS 13.0, *)
 internal let defaultNodeRecorders: [NodeRecorder] = [
     SwiftUIFrameRecorder(),
     SwiftUIImageRecorder(),
