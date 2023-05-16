@@ -1,6 +1,6 @@
 ## Platforms
 
-| Platform   | Supported |  Info  |
+| Platform   | Supported |  Version  |
 |------------|:---------:|-------:|
 | **iOS**    |     ✅    |  `11+` |
 | **tvOS**   |     ✅    |  `11+` |
@@ -16,9 +16,9 @@ SDK is build using the most recent version of Xcode, but we make sure that it's 
 ## Dependency Managers
 
 We currently support integration of the SDK using following dependency managers.
-- Swift Package Manager
-- Cocoapods
-- Carthage
+- [Swift Package Manager](https://docs.datadoghq.com/logs/log_collection/ios/?tab=swiftpackagemanagerspm)
+- [Cocoapods](https://docs.datadoghq.com/logs/log_collection/ios/?tab=cocoapods)
+- [Carthage](https://docs.datadoghq.com/logs/log_collection/ios/?tab=carthage)
 
 ## Languages
 
@@ -41,8 +41,11 @@ We currently support integration of the SDK using following dependency managers.
 |[**Alamofire 5+**](https://github.com/DataDog/dd-sdk-ios/tree/develop/Sources/DatadogExtensions/Alamofire) |       ❌     |   ✅    |
 |  **SwiftNIO**   |       ❌     |   ❌    |
 
+*Note: Third party networking libraries can be instrumented by implementing custom `DDURLSessionDelegate`.*
+
 ## Catalyst
-We support Catalyst in build mode only.
+We support Catalyst in build mode only, which means that macOS target will build, but functionalities for the SDK won't work for this target.
 
 ## Dependencies
-We aim to provide dependency-less SDK. Currently there is only one exception to the rule which is PLCrashReporter dependency, required by crash reporting feature.
+The Datadog SDK depends on the following third-party library:
+- [PLCrashReporter](https://github.com/microsoft/plcrashreporter) 1.11.0

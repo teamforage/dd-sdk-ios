@@ -7,7 +7,7 @@ let package = Package(
     platforms: [.macOS(.v10_15)],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.2.0"),
-        .package(name: "Difference", url: "https://github.com/krzysztofzablocki/Difference.git", from: "0.5.0"),
+        .package(url: "https://github.com/krzysztofzablocki/Difference.git", from: "0.5.0"),
     ],
     targets: [
         // CLI wrapper
