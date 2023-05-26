@@ -11,7 +11,7 @@
 
 ## Xcode
 
-SDK is build using the most recent version of Xcode, but we make sure that it's backward compatible with the [lowest supported Xcode version for AppStore submission](https://developer.apple.com/news/?id=jd9wcyov).
+SDK is built using the most recent version of Xcode, but we make sure that it's backward compatible with the [lowest supported Xcode version for AppStore submission](https://developer.apple.com/news/?id=jd9wcyov).
 
 ## Dependency Managers
 
