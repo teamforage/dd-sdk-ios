@@ -114,15 +114,16 @@ class URLSessionSwizzlerTests: XCTestCase {
 
     func testGivenURLSessionWithDDURLSessionDelegate_whenUsingTaskWithURLAndCompletion_itNotifiesTaskCreationAndCompletionAndModifiesTheRequestOnlyPriorToIOS13() throws {
         let notifyRequestMutation = expectation(description: "Notify request mutation")
-        if #available(iOS 13.0, *) {
-            notifyRequestMutation.isInverted = true
-        }
         let notifyInterceptionStart = expectation(description: "Notify interception did start")
         let notifyInterceptionComplete = expectation(description: "Notify intercepion did complete")
         let completionHandlerCalled = expectation(description: "Call completion handler")
         let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
 
-        handler.modifiedRequest = URLRequest(url: .mockRandom())
+        let request = URLRequest(url: .mockRandom())
+        handler.modifiedRequest = request
+        handler.firstPartyHosts = .init(
+            hostsWithTracingHeaderTypes: [request.url!.host!: [.datadog]]
+        )
         handler.onRequestMutation = { _, _ in notifyRequestMutation.fulfill() }
         handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
         handler.onInterceptionComplete = { _ in notifyInterceptionComplete.fulfill() }
@@ -150,11 +151,7 @@ class URLSessionSwizzlerTests: XCTestCase {
         wait(for: [completionHandlerCalled], timeout: 0)
 
         let requestSent = try XCTUnwrap(server.waitAndReturnRequests(count: 1).first)
-        if #available(iOS 13.0, *) {
-            XCTAssertNotEqual(requestSent, handler.modifiedRequest, "The request should not be modified on iOS 13.0 and above.")
-        } else {
-            XCTAssertEqual(requestSent, handler.modifiedRequest, "The request should be modified prior to iOS 13.0.")
-        }
+        XCTAssertEqual(requestSent, handler.modifiedRequest, "The request should be modified.")
     }
 
     func testGivenURLSessionWithDDURLSessionDelegate_whenUsingTaskWithURLRequest_itNotifiesCreationAndCompletionAndModifiesTheRequest() throws {
