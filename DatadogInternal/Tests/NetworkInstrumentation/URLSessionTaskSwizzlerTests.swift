@@ -55,8 +55,8 @@ final class URLSessionTaskSwizzlerTests: XCTestCase {
         assertSwizzlingDisable()
     }
 
-    @available(iOS 15.0, tvOS 15.0, *)
     @MainActor
+    @available(iOS 15.0, tvOS 15.0, *)
     func testGivenURLSessionWithDatadogDelegate_whenUsingDataFromURL_itNotifiesInterceptor() async throws {
         let notifyInterceptionStart = expectation(description: "Notify interception did start")
         let notifyInterceptionComplete = expectation(description: "Notify intercepion did complete")
@@ -115,8 +115,8 @@ final class URLSessionTaskSwizzlerTests: XCTestCase {
 //        _ = server.waitAndReturnRequests(count: 1)
 //    }
 
-    @available(iOS 15.0, tvOS 15.0, *)
     @MainActor
+    @available(iOS 15.0, tvOS 15.0, *)
     func testGivenURLSessionWithDatadogDelegate_whenUsingDataForURLRequest_itNotifiesInterceptor() async throws {
         let notifyRequestMutation = expectation(description: "Notify request mutation")
         let notifyInterceptionStart = expectation(description: "Notify interception did start")
