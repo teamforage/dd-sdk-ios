@@ -122,7 +122,7 @@ class URLSessionSwizzlerTests: XCTestCase {
         let completionHandlerCalled = expectation(description: "Call completion handler")
         let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
 
-//        handler.modifiedRequest = URLRequest(url: .mockRandom())
+        handler.modifiedRequest = URLRequest(url: .mockRandom())
         handler.onRequestMutation = { _, _ in notifyRequestMutation.fulfill() }
         handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
         handler.onInterceptionComplete = { _ in notifyInterceptionComplete.fulfill() }
