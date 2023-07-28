@@ -49,12 +49,12 @@ internal class DatadogTestsObserver: NSObject, XCTestObservation {
             """
         ),
         .init(
-            assert: { URLSessionSwizzler.bindingsCount == 0 },
-            problem: "No `URLSessionSwizzler` must be bonded.",
+            assert: { URLSessionTaskSwizzler.bindingsCount == 0 },
+            problem: "No `URLSessionTaskSwizzler` must be bonded.",
             solution: """
-            Make sure all applied `URLSessionSwizzler.bind()` are reset by the end of test with `URLSessionSwizzler.unbind()`.
+            Make sure all applied `URLSessionTaskSwizzler.bind()` are reset by the end of test with `URLSessionTaskSwizzler.unbind()`.
 
-            `DatadogTestsObserver` found \(URLSessionSwizzler.bindingsCount) bindings left.
+            `DatadogTestsObserver` found \(URLSessionTaskSwizzler.bindingsCount) bindings left.
             """
         ),
         .init(

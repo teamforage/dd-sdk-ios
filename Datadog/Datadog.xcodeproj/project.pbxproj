@@ -379,8 +379,6 @@
 		D2160CC629C0DED100FAA9A5 /* URLSessionTaskInterception.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CC129C0DED100FAA9A5 /* URLSessionTaskInterception.swift */; };
 		D2160CC929C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CC329C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift */; };
 		D2160CCA29C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CC329C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift */; };
-		D2160CCB29C0DED100FAA9A5 /* URLSessionSwizzler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CC429C0DED100FAA9A5 /* URLSessionSwizzler.swift */; };
-		D2160CCC29C0DED100FAA9A5 /* URLSessionSwizzler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CC429C0DED100FAA9A5 /* URLSessionSwizzler.swift */; };
 		D2160CD429C0DF6700FAA9A5 /* NetworkInstrumentationFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CCD29C0DF6700FAA9A5 /* NetworkInstrumentationFeatureTests.swift */; };
 		D2160CD529C0DF6700FAA9A5 /* NetworkInstrumentationFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CCD29C0DF6700FAA9A5 /* NetworkInstrumentationFeatureTests.swift */; };
 		D2160CD629C0DF6700FAA9A5 /* URLSessionSwizzlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2160CCE29C0DF6700FAA9A5 /* URLSessionSwizzlerTests.swift */; };
@@ -2083,7 +2081,6 @@
 		D2160C9829C0DE5700FAA9A5 /* NetworkInstrumentationFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInstrumentationFeature.swift; sourceTree = "<group>"; };
 		D2160CC129C0DED100FAA9A5 /* URLSessionTaskInterception.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTaskInterception.swift; sourceTree = "<group>"; };
 		D2160CC329C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatadogURLSessionDelegate.swift; sourceTree = "<group>"; };
-		D2160CC429C0DED100FAA9A5 /* URLSessionSwizzler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionSwizzler.swift; sourceTree = "<group>"; };
 		D2160CCD29C0DF6700FAA9A5 /* NetworkInstrumentationFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInstrumentationFeatureTests.swift; sourceTree = "<group>"; };
 		D2160CCE29C0DF6700FAA9A5 /* URLSessionSwizzlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionSwizzlerTests.swift; sourceTree = "<group>"; };
 		D2160CCF29C0DF6700FAA9A5 /* FirstPartyHostsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstPartyHostsTests.swift; sourceTree = "<group>"; };
@@ -4185,7 +4182,6 @@
 				D295A16429F299C9007C0E9A /* URLSessionInterceptor.swift */,
 				D2160CC129C0DED100FAA9A5 /* URLSessionTaskInterception.swift */,
 				D2160CC329C0DED100FAA9A5 /* DatadogURLSessionDelegate.swift */,
-				D2160CC429C0DED100FAA9A5 /* URLSessionSwizzler.swift */,
 				3C4742722A71110500F4CB04 /* URLSessionTaskSwizzler.swift */,
 			);
 			path = URLSession;
@@ -6768,7 +6764,6 @@
 				D23039FB298D5236001A1FA3 /* URLRequestBuilder.swift in Sources */,
 				D23039F6298D5236001A1FA3 /* Attributes.swift in Sources */,
 				D20731CB29A52E6000ECBF94 /* Sampler.swift in Sources */,
-				D2160CCB29C0DED100FAA9A5 /* URLSessionSwizzler.swift in Sources */,
 				D2EBEE2029BA160F00B15732 /* TracePropagationHeadersWriter.swift in Sources */,
 				D23039F2298D5236001A1FA3 /* AnyDecoder.swift in Sources */,
 				D23039EF298D5236001A1FA3 /* FeatureMessage.swift in Sources */,
@@ -7542,7 +7537,6 @@
 				D2DA2377298D57AA00C6C7E6 /* URLRequestBuilder.swift in Sources */,
 				D2DA2378298D57AA00C6C7E6 /* Attributes.swift in Sources */,
 				D20731CC29A52E6000ECBF94 /* Sampler.swift in Sources */,
-				D2160CCC29C0DED100FAA9A5 /* URLSessionSwizzler.swift in Sources */,
 				D2EBEE2E29BA161100B15732 /* TracePropagationHeadersWriter.swift in Sources */,
 				D2DA2379298D57AA00C6C7E6 /* AnyDecoder.swift in Sources */,
 				D2DA237A298D57AA00C6C7E6 /* FeatureMessage.swift in Sources */,
