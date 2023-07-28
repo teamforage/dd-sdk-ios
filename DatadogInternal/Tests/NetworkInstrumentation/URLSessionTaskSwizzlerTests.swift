@@ -55,6 +55,7 @@ final class URLSessionTaskSwizzlerTests: XCTestCase {
         assertSwizzlingDisable()
     }
 
+#if swift(>=5.5.2)
     @MainActor
     @available(iOS 15.0, tvOS 15.0, *)
     func testGivenURLSessionWithDatadogDelegate_whenUsingDataFromURL_itNotifiesInterceptor() async throws {
@@ -184,6 +185,7 @@ final class URLSessionTaskSwizzlerTests: XCTestCase {
 //        await fulfillment(of: [notifyInterceptionStart], timeout: 1)
 //        _ = server.waitAndReturnRequests(count: 1)
 //    }
+#endif
 
     func testConcurrentBinding() throws {
         // swiftlint:disable opening_brace trailing_closure
