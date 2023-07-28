@@ -20,19 +20,29 @@ internal class SendFirstPartyRequestsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        callSuccessfullFirstPartyURL()
-        callSuccessfullFirstPartyURLRequest()
-        callBadFirstPartyURL()
+       callSuccessfulFirstPartyURL()
+       callSuccessfulFirstPartyURLRequest()
+       callBadFirstPartyURL()
+
+        if #available(iOS 15.0, *) {
+            Task {
+                await callSuccessfulFirstPartyURLAsync()
+                await callSuccessfulFirstPartyURLRequestAsync()
+                await callBadFirstPartyURLAsync()
+            }
+        }
     }
 
-    private func callSuccessfullFirstPartyURL() {
+    // MARK: - Tasks
+
+    private func callSuccessfulFirstPartyURL() {
         let task = session.dataTask(with: testScenario.customGETResourceURL) { _, _, error in
             assert(error == nil)
         }
         task.resume()
     }
 
-    private func callSuccessfullFirstPartyURLRequest() {
+    private func callSuccessfulFirstPartyURLRequest() {
         let task = session.dataTask(with: testScenario.customPOSTRequest) { _, _, error in
             assert(error == nil)
         }
@@ -42,5 +52,30 @@ internal class SendFirstPartyRequestsViewController: UIViewController {
     private func callBadFirstPartyURL() {
         let task = session.dataTask(with: testScenario.badResourceURL)
         task.resume()
+    }
+
+    // MARK: - Structured Concurrency
+
+    @available(iOS 15.0, *)
+    private func callSuccessfulFirstPartyURLAsync() async {
+        do {
+            _ = try await session.data(from: testScenario.customGETResourceURL)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    @available(iOS 15.0, *)
+    private func callSuccessfulFirstPartyURLRequestAsync() async {
+        do {
+            _ = try await session.data(for: testScenario.customPOSTRequest)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    @available(iOS 15.0, *)
+    private func callBadFirstPartyURLAsync() async {
+        _ = try? await session.data(from: testScenario.badResourceURL)
     }
 }

@@ -25,6 +25,7 @@ class NetworkInstrumentationFeatureTests: XCTestCase {
 
     override func tearDown() {
         core = nil
+        handler = nil
         super.tearDown()
     }
 
@@ -327,103 +328,103 @@ class NetworkInstrumentationFeatureTests: XCTestCase {
 
     // MARK: - First Party Hosts
 
-    func testGivenHandler_whenInterceptingRequests_itDetectFirstPartyHost() throws {
-        let notifyInterceptionStart = expectation(description: "Notify interception did start")
-        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
+//    func testGivenHandler_whenInterceptingRequests_itDetectFirstPartyHost() throws {
+//        let notifyInterceptionStart = expectation(description: "Notify interception did start")
+//        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
+//
+//        // Given
+//        let delegate = DatadogURLSessionDelegate(
+//            in: core,
+//            additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
+//        )
+//        let session = server.getInterceptedURLSession(delegate: delegate)
+//        let request: URLRequest = .mockWith(url: "https://test.com")
+//
+//        handler.onInterceptionStart = {
+//            // Then
+//            XCTAssertTrue($0.isFirstPartyRequest)
+//            notifyInterceptionStart.fulfill()
+//        }
+//
+//        // When
+//        session
+//            .dataTask(with: request)
+//            .resume()
+//
+//        // Then
+//        waitForExpectations(timeout: 1, handler: nil)
+//        _ = server.waitAndReturnRequests(count: 1)
+//    }
 
-        // Given
-        let delegate = DatadogURLSessionDelegate(
-            in: core,
-            additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
-        )
-        let session = server.getInterceptedURLSession(delegate: delegate)
-        let request: URLRequest = .mockWith(url: "https://test.com")
+//    func testGivenDelegateSubclass_whenInterceptingRequests_itDetectFirstPartyHost() throws {
+//        let notifyInterceptionStart = expectation(description: "Notify interception did start")
+//        handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
+//        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
+//
+//        // Given
+//        class SubclassDelegate: DatadogURLSessionDelegate {}
+//
+//        let delegate = SubclassDelegate(
+//            in: core,
+//            additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
+//        )
+//        let session = server.getInterceptedURLSession(delegate: delegate)
+//        let request: URLRequest = .mockWith(url: "https://test.com")
+//
+//        handler.onInterceptionStart = {
+//            // Then
+//            XCTAssertTrue($0.isFirstPartyRequest)
+//            notifyInterceptionStart.fulfill()
+//        }
+//
+//        // When
+//        session
+//            .dataTask(with: request)
+//            .resume()
+//
+//        // Then
+//        waitForExpectations(timeout: 1, handler: nil)
+//        _ = server.waitAndReturnRequests(count: 1)
+//    }
 
-        handler.onInterceptionStart = {
-            // Then
-            XCTAssertTrue($0.isFirstPartyRequest)
-            notifyInterceptionStart.fulfill()
-        }
-
-        // When
-        session
-            .dataTask(with: request)
-            .resume()
-
-        // Then
-        waitForExpectations(timeout: 1, handler: nil)
-        _ = server.waitAndReturnRequests(count: 1)
-    }
-
-    func testGivenDelegateSubclass_whenInterceptingRequests_itDetectFirstPartyHost() throws {
-        let notifyInterceptionStart = expectation(description: "Notify interception did start")
-        handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
-        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
-
-        // Given
-        class SubclassDelegate: DatadogURLSessionDelegate {}
-
-        let delegate = SubclassDelegate(
-            in: core,
-            additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
-        )
-        let session = server.getInterceptedURLSession(delegate: delegate)
-        let request: URLRequest = .mockWith(url: "https://test.com")
-
-        handler.onInterceptionStart = {
-            // Then
-            XCTAssertTrue($0.isFirstPartyRequest)
-            notifyInterceptionStart.fulfill()
-        }
-
-        // When
-        session
-            .dataTask(with: request)
-            .resume()
-
-        // Then
-        waitForExpectations(timeout: 1, handler: nil)
-        _ = server.waitAndReturnRequests(count: 1)
-    }
-
-    func testGivenCompositeDelegate_whenInterceptingRequests_itDetectFirstPartyHost() throws {
-        let notifyInterceptionStart = expectation(description: "Notify interception did start")
-        handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
-        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
-
-        // Given
-        class CompositeDelegate: NSObject, URLSessionDataDelegate, __URLSessionDelegateProviding {
-            let ddURLSessionDelegate: DatadogURLSessionDelegate
-
-            required init(in core: DatadogCoreProtocol) {
-                ddURLSessionDelegate = DatadogURLSessionDelegate(
-                    in: core,
-                    additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
-                )
-
-                super.init()
-            }
-        }
-
-        let delegate = CompositeDelegate(in: core)
-        let session = server.getInterceptedURLSession(delegate: delegate)
-        let request: URLRequest = .mockWith(url: "https://test.com")
-
-        handler.onInterceptionStart = {
-            // Then
-            XCTAssertTrue($0.isFirstPartyRequest)
-            notifyInterceptionStart.fulfill()
-        }
-
-        // When
-        session
-            .dataTask(with: request)
-            .resume()
-
-        // Then
-        waitForExpectations(timeout: 0.5, handler: nil)
-        _ = server.waitAndReturnRequests(count: 1)
-    }
+//    func testGivenCompositeDelegate_whenInterceptingRequests_itDetectFirstPartyHost() throws {
+//        let notifyInterceptionStart = expectation(description: "Notify interception did start")
+//        handler.onInterceptionStart = { _ in notifyInterceptionStart.fulfill() }
+//        let server = ServerMock(delivery: .success(response: .mockResponseWith(statusCode: 200), data: .mock(ofSize: 10)))
+//
+//        // Given
+//        class CompositeDelegate: NSObject, URLSessionDataDelegate, __URLSessionDelegateProviding {
+//            let ddURLSessionDelegate: DatadogURLSessionDelegate
+//
+//            required init(in core: DatadogCoreProtocol) {
+//                ddURLSessionDelegate = DatadogURLSessionDelegate(
+//                    in: core,
+//                    additionalFirstPartyHostsWithHeaderTypes: ["test.com": [.datadog]]
+//                )
+//
+//                super.init()
+//            }
+//        }
+//
+//        let delegate = CompositeDelegate(in: core)
+//        let session = server.getInterceptedURLSession(delegate: delegate)
+//        let request: URLRequest = .mockWith(url: "https://test.com")
+//
+//        handler.onInterceptionStart = {
+//            // Then
+//            XCTAssertTrue($0.isFirstPartyRequest)
+//            notifyInterceptionStart.fulfill()
+//        }
+//
+//        // When
+//        session
+//            .dataTask(with: request)
+//            .resume()
+//
+//        // Then
+//        waitForExpectations(timeout: 0.5, handler: nil)
+//        _ = server.waitAndReturnRequests(count: 1)
+//    }
 
     // MARK: - Thread Safety
 

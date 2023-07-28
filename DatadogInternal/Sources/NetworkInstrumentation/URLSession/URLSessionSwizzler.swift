@@ -23,7 +23,7 @@ internal class URLSessionSwizzler {
     /// `URLSession.dataTask(with:)` (for `URL`) swizzling. Only applied on iOS 13 and above.
     internal private(set) static var dataTaskWithURL: DataTaskWithURL?
 
-    static func bind() throws {
+    private static func bind() throws {
         lock.lock()
         defer { lock.unlock() }
 
@@ -50,7 +50,7 @@ internal class URLSessionSwizzler {
         bindingsCount += 1
     }
 
-    static func unbind() {
+    private static func unbind() {
         lock.lock()
         defer { lock.unlock() }
 

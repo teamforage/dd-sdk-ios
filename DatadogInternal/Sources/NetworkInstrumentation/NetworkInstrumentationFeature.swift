@@ -41,14 +41,17 @@ internal final class NetworkInstrumentationFeature: DatadogFeature {
     /// Maps `URLSessionTask` to its `TaskInterception` object.
     ///
     /// The interceptions **must** be accessed using the `queue`.
+    @ReadWriteLock
     private var interceptions: [URLSessionTask: URLSessionTaskInterception] = [:]
 
     init() throws {
-        try URLSessionSwizzler.bind()
+        try URLSessionTaskSwizzler.bind { [weak self] task in
+            self?.intercept(task: task, additionalFirstPartyHosts: nil)
+        }
     }
 
     deinit {
-        URLSessionSwizzler.unbind()
+        URLSessionTaskSwizzler.unbind()
     }
 }
 
@@ -82,7 +85,11 @@ extension NetworkInstrumentationFeature {
             return
         }
 
-        queue.async {
+        // async update to task leads to race condition where the currentRequest could already be sent to the transport
+        queue.sync {
+            let interceptedRequest = self.intercept(request: request, additionalFirstPartyHosts: additionalFirstPartyHosts)
+            task.setValue(interceptedRequest, forKey: "currentRequest")
+
             let firstPartyHosts = self.firstPartyHosts(with: additionalFirstPartyHosts)
 
             let interception = URLSessionTaskInterception(
@@ -118,6 +125,13 @@ extension NetworkInstrumentationFeature {
                 metrics: ResourceMetrics(taskMetrics: metrics)
             )
 
+            switch task.state {
+            case .completed:
+                interception.register(response: task.response, error: task.error)
+            default:
+                break
+            }
+
             if interception.isDone {
                 self.finish(task: task, interception: interception)
             }
@@ -148,6 +162,13 @@ extension NetworkInstrumentationFeature {
                 response: task.response,
                 error: error
             )
+
+            switch task.state {
+            case .completed:
+                interception.register(response: task.response, error: task.error)
+            default:
+                break
+            }
 
             if interception.isDone {
                 self.finish(task: task, interception: interception)
