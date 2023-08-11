@@ -453,6 +453,8 @@
 		A728ADAC2934EA2100397996 /* W3CHTTPHeadersWriter+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A728ADAA2934EA2100397996 /* W3CHTTPHeadersWriter+objc.swift */; };
 		A728ADB02934EB0900397996 /* DDW3CHTTPHeadersWriter+apiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A728ADAD2934EB0300397996 /* DDW3CHTTPHeadersWriter+apiTests.m */; };
 		A728ADB12934EB0C00397996 /* DDW3CHTTPHeadersWriter+apiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A728ADAD2934EB0300397996 /* DDW3CHTTPHeadersWriter+apiTests.m */; };
+		A76AEDF72A863E8700B5D087 /* BackgroundTaskCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76AEDF62A863E8700B5D087 /* BackgroundTaskCoordinator.swift */; };
+		A76AEDF82A863E8700B5D087 /* BackgroundTaskCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76AEDF62A863E8700B5D087 /* BackgroundTaskCoordinator.swift */; };
 		A79B0F64292BD074008742B3 /* DDOTelHTTPHeadersWriter+apiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A79B0F63292BD074008742B3 /* DDOTelHTTPHeadersWriter+apiTests.m */; };
 		A79B0F65292BD074008742B3 /* DDOTelHTTPHeadersWriter+apiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A79B0F63292BD074008742B3 /* DDOTelHTTPHeadersWriter+apiTests.m */; };
 		A79B0F66292BD7CA008742B3 /* OTelHTTPHeadersWriter+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79B0F5E292BA435008742B3 /* OTelHTTPHeadersWriter+objc.swift */; };
@@ -2346,6 +2348,7 @@
 		A728ADA52934DF2400397996 /* W3CHTTPHeadersReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CHTTPHeadersReaderTests.swift; sourceTree = "<group>"; };
 		A728ADAA2934EA2100397996 /* W3CHTTPHeadersWriter+objc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "W3CHTTPHeadersWriter+objc.swift"; sourceTree = "<group>"; };
 		A728ADAD2934EB0300397996 /* DDW3CHTTPHeadersWriter+apiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DDW3CHTTPHeadersWriter+apiTests.m"; sourceTree = "<group>"; };
+		A76AEDF62A863E8700B5D087 /* BackgroundTaskCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskCoordinator.swift; sourceTree = "<group>"; };
 		A79B0F5A292B7C06008742B3 /* OTelHTTPHeadersWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTelHTTPHeadersWriterTests.swift; sourceTree = "<group>"; };
 		A79B0F5E292BA435008742B3 /* OTelHTTPHeadersWriter+objc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OTelHTTPHeadersWriter+objc.swift"; sourceTree = "<group>"; };
 		A79B0F60292BB071008742B3 /* OTelHTTPHeadersReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTelHTTPHeadersReaderTests.swift; sourceTree = "<group>"; };
@@ -5393,6 +5396,7 @@
 		D26C49B428893E5300802B2D /* Upload */ = {
 			isa = PBXGroup;
 			children = (
+				A76AEDF62A863E8700B5D087 /* BackgroundTaskCoordinator.swift */,
 				D26C49BE288982DA00802B2D /* FeatureUpload.swift */,
 				61133BB32423979B00786299 /* DataUploadDelay.swift */,
 				61ED39D326C2A36B002C0F26 /* DataUploadStatus.swift */,
@@ -7252,6 +7256,7 @@
 				61C3638524361E9200C4D4E6 /* Globals.swift in Sources */,
 				D20605CB2875A83F0047275C /* ContextValueReader.swift in Sources */,
 				61D3E0DB277B23F1008BE766 /* KronosNSTimer+ClosureKit.swift in Sources */,
+				A76AEDF72A863E8700B5D087 /* BackgroundTaskCoordinator.swift in Sources */,
 				D20605A92874C1CD0047275C /* NetworkConnectionInfoPublisher.swift in Sources */,
 				614396722A67D74F00197326 /* CoreMetrics.swift in Sources */,
 				D20605A6287476230047275C /* ServerOffsetPublisher.swift in Sources */,
@@ -8326,6 +8331,7 @@
 				D2CB6E4327C50EAE00A62B57 /* ObjcExceptionHandler.m in Sources */,
 				D2A7841029A53B2F003B03BB /* Directory.swift in Sources */,
 				61DA8CB028620C760074A606 /* Cryptography.swift in Sources */,
+				A76AEDF82A863E8700B5D087 /* BackgroundTaskCoordinator.swift in Sources */,
 				D2DC4BF727F484AA00E4FB96 /* DataEncryption.swift in Sources */,
 				614396732A67D74F00197326 /* CoreMetrics.swift in Sources */,
 				D29294E1291D5ED500F8EFF9 /* ApplicationVersionPublisher.swift in Sources */,
