@@ -4,51 +4,24 @@ import PackageDescription
 import Foundation
 
 let package = Package(
-    name: "Datadog",
+    name: "DatadogFork",
     platforms: [
         .iOS(.v11),
         .tvOS(.v11)
     ],
     products: [
         .library(
-            name: "DatadogCore",
-            targets: ["DatadogCore"]
+            name: "DatadogCoreFork",
+            targets: ["DatadogCoreFork"]
         ),
         .library(
-            name: "DatadogObjc",
-            targets: ["DatadogObjc"]
+            name: "DatadogLogsFork",
+            targets: ["DatadogLogsFork"]
         ),
-        .library(
-            name: "DatadogLogs",
-            targets: ["DatadogLogs"]
-        ),
-        .library(
-            name: "DatadogTrace",
-            targets: ["DatadogTrace"]
-        ),
-        .library(
-            name: "DatadogRUM",
-            targets: ["DatadogRUM"]
-        ),
-        .library(
-            name: "DatadogSessionReplay",
-            targets: ["DatadogSessionReplay"]
-        ),
-        .library(
-            name: "DatadogCrashReporting",
-            targets: ["DatadogCrashReporting"]
-        ),
-        .library(
-            name: "DatadogWebViewTracking",
-            targets: ["DatadogWebViewTracking"]
-        ),
-    ],
-    dependencies: [
-        .package(name: "PLCrashReporter", url: "https://github.com/microsoft/plcrashreporter.git", from: "1.11.1"),
     ],
     targets: [
         .target(
-            name: "DatadogCore",
+            name: "DatadogCoreFork",
             dependencies: [
                 .target(name: "DatadogInternal"),
                 .target(name: "DatadogPrivate"),
@@ -57,133 +30,38 @@ let package = Package(
             swiftSettings: [.define("SPM_BUILD")]
         ),
         .target(
-            name: "DatadogObjc",
-            dependencies: [
-                .target(name: "DatadogCore"),
-                .target(name: "DatadogLogs"),
-                .target(name: "DatadogTrace"),
-                .target(name: "DatadogRUM"),
-                .target(name: "DatadogSessionReplay"),
-            ],
-            path: "DatadogObjc/Sources"
-        ),
-        .target(
-            name: "DatadogPrivate",
-            path: "DatadogCore/Private"
-        ),
-
-        .target(
-            name: "DatadogInternal",
+            name: "DatadogInternalFork",
             path: "DatadogInternal/Sources"
         ),
         .testTarget(
-            name: "DatadogInternalTests",
+            name: "DatadogInternalTestsFork",
             dependencies: [
-                .target(name: "DatadogInternal"),
-                .target(name: "TestUtilities"),
+                .target(name: "DatadogInternalFork"),
+                .target(name: "TestUtilitiesFork"),
             ],
             path: "DatadogInternal/Tests"
         ),
 
         .target(
-            name: "DatadogLogs",
+            name: "DatadogLogsFork",
             dependencies: [
-                .target(name: "DatadogInternal"),
+                .target(name: "DatadogInternalFork"),
             ],
             path: "DatadogLogs/Sources"
         ),
         .testTarget(
-            name: "DatadogLogsTests",
+            name: "DatadogLogsTestsFork",
             dependencies: [
-                .target(name: "DatadogLogs"),
-                .target(name: "TestUtilities"),
+                .target(name: "DatadogLogsFork"),
+                .target(name: "TestUtilitiesFork"),
             ],
             path: "DatadogLogs/Tests"
         ),
 
         .target(
-            name: "DatadogTrace",
+            name: "TestUtilitiesForkFork",
             dependencies: [
-                .target(name: "DatadogInternal"),
-            ],
-            path: "DatadogTrace/Sources"
-        ),
-        .testTarget(
-            name: "DatadogTraceTests",
-            dependencies: [
-                .target(name: "DatadogTrace"),
-                .target(name: "TestUtilities"),
-            ],
-            path: "DatadogTrace/Tests"
-        ),
-
-        .target(
-            name: "DatadogRUM",
-            dependencies: [
-                .target(name: "DatadogInternal"),
-            ],
-            path: "DatadogRUM/Sources"
-        ),
-        .testTarget(
-            name: "DatadogRUMTests",
-            dependencies: [
-                .target(name: "DatadogRUM"),
-                .target(name: "TestUtilities"),
-            ],
-            path: "DatadogRUM/Tests"
-        ),
-
-        .target(
-            name: "DatadogCrashReporting",
-            dependencies: [
-                .target(name: "DatadogInternal"),
-                .product(name: "CrashReporter", package: "PLCrashReporter"),
-            ],
-            path: "DatadogCrashReporting/Sources"
-        ),
-        .testTarget(
-            name: "DatadogCrashReportingTests",
-            dependencies: [
-                .target(name: "DatadogCrashReporting"),
-                .target(name: "TestUtilities"),
-            ],
-            path: "DatadogCrashReporting/Tests"
-        ),
-
-        .target(
-            name: "DatadogWebViewTracking",
-            dependencies: [
-                .target(name: "DatadogInternal"),
-            ],
-            path: "DatadogWebViewTracking/Sources"
-        ),
-        .testTarget(
-            name: "DatadogWebViewTrackingTests",
-            dependencies: [
-                .target(name: "DatadogWebViewTracking"),
-                .target(name: "TestUtilities"),
-            ],
-            path: "DatadogWebViewTracking/Tests"
-        ),
-
-        .target(
-            name: "DatadogSessionReplay",
-            dependencies: ["DatadogInternal"],
-            path: "DatadogSessionReplay/Sources"
-        ),
-        .testTarget(
-            name: "DatadogSessionReplayTests",
-            dependencies: [
-                .target(name: "DatadogSessionReplay"),
-                .target(name: "TestUtilities"),
-            ],
-            path: "DatadogSessionReplay/Tests"
-        ),
-
-        .target(
-            name: "TestUtilities",
-            dependencies: [
-                .target(name: "DatadogInternal"),
+                .target(name: "DatadogInternalFork"),
             ],
             path: "TestUtilities",
             sources: ["Mocks", "Helpers"]
@@ -197,8 +75,8 @@ let package = Package(
 if ProcessInfo.processInfo.environment["DD_TEST_UTILITIES_ENABLED"] != nil {
     package.products.append(
         .library(
-            name: "TestUtilities",
-            targets: ["TestUtilities"]
+            name: "TestUtilitiesFork",
+            targets: ["TestUtilitiesFork"]
         )
     )
 }

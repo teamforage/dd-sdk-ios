@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "TestUtilities"
+  s.name         = "TestUtilitiesFork"
   s.version      = "2.1.0"
   s.summary      = "Datadog Testing Utilities. This module is for internal testing and should not be published."
   
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.tvos.deployment_target = '11.0'
 
-  s.source = { :git => "https://github.com/DataDog/dd-sdk-ios.git", :tag => s.version.to_s }
+  s.source = { :git => "https://github.com/teamforage/dd-sdk-ios-fork.git", :tag => s.version.to_s }
 
   s.pod_target_xcconfig = {
     'ENABLE_TESTING_SEARCH_PATHS'=>'YES'
@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
     "TestUtilities/Mocks/**/*.swift"
   ]
 
-  s.dependency 'DatadogInternal'
+  s.dependency 'DatadogInternalFork'
 
 end

@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "DatadogCore"
+  s.name         = "DatadogCoreFork"
   s.version      = "2.1.0"
   s.summary      = "Forage's fork of the Datadog Swift SDK for iOS."
   
