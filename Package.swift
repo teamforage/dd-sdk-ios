@@ -23,11 +23,16 @@ let package = Package(
         .target(
             name: "DatadogCoreFork",
             dependencies: [
-                .target(name: "DatadogInternal"),
-                .target(name: "DatadogPrivate"),
+                .target(name: "DatadogInternalFork"),
+                .target(name: "DatadogPrivateFork"),
             ],
             path: "DatadogCore/Sources",
             swiftSettings: [.define("SPM_BUILD")]
+        ),
+
+        .target(
+            name: "DatadogPrivateFork",
+            path: "DatadogCore/Private"
         ),
         .target(
             name: "DatadogInternalFork",
