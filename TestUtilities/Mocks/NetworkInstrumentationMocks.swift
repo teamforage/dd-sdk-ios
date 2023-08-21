@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 extension TraceID {
     public static func mockAny() -> TraceID {

@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 extension DatadogContext: AnyMockable {
     public static func mockAny() -> DatadogContext { mockWith() }

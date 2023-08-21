@@ -6,9 +6,9 @@
 
 import XCTest
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogCore
 
 class DatadogLogsFeatureTests: XCTestCase {

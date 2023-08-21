@@ -6,7 +6,7 @@
 
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 extension Event: AnyMockable {
     public static func mockAny() -> Self {

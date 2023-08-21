@@ -8,7 +8,7 @@
 
 import XCTest
 import CoreTelephony
-import DatadogInternal
+import DatadogInternalFork
 @testable import DatadogCore
 
 class CarrierInfoPublisherTests: XCTestCase {

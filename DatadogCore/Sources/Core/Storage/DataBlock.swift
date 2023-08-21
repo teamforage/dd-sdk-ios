@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// Block size binary type
 internal typealias BlockSize = UInt32

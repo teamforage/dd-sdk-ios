@@ -1,11 +1,11 @@
-framework module DatadogCore {
+framework module DatadogCoreFork {
   umbrella header "DatadogCore.h"
 
   export *
   module * { export * }
 }
 
-framework module DatadogPrivate {
+framework module DatadogPrivateFork {
   export *
 
   // All headers listed below must be also added to the "Headers" Build Phase in Datadog target.

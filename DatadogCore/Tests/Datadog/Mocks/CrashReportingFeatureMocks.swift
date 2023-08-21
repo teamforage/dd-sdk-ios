@@ -5,9 +5,9 @@
  */
 
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogRUM
 @testable import DatadogCrashReporting
 @testable import DatadogCore

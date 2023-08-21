@@ -6,8 +6,8 @@
 
 import Foundation
 import TestUtilities
-import DatadogInternal
-import DatadogCore
+import DatadogInternalFork
+import DatadogCoreFork
 
 internal struct DatadogRemoteFeatureMock: DatadogRemoteFeature {
     static let name = "mock"

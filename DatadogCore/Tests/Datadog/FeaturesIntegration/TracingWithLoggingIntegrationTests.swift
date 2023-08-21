@@ -5,10 +5,10 @@
  */
 
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 import TestUtilities
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogTrace
 @testable import DatadogCore
 

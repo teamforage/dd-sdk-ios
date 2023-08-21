@@ -4,7 +4,7 @@
  * Copyright 2019-Present Datadog, Inc.
  */
 
-import DatadogInternal
+import DatadogInternalFork
 
 /// Core mock that only allows registering and retrieving features.
 ///

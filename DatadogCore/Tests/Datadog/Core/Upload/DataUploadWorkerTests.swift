@@ -6,7 +6,7 @@
 
 import XCTest
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 @testable import DatadogCore
 
 class DataUploadWorkerTests: XCTestCase {

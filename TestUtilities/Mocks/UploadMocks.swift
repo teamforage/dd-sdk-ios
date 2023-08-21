@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 public struct UploadPerformanceMock: UploadPerformancePreset {
     public let initialUploadDelay: TimeInterval

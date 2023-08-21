@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// Writer performing writes asynchronously on a given queue.
 internal struct AsyncWriter: Writer {

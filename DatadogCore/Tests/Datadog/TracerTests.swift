@@ -6,10 +6,10 @@
 
 import XCTest
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
 @testable import DatadogTrace
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogCore
 
 // swiftlint:disable multiline_arguments_brackets

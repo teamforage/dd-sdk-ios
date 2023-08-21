@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 extension Sampler: AnyMockable, RandomMockable {
     public static func mockAny() -> Sampler {

@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// `DateProvider` mock returning consecutive dates in custom intervals, starting from given reference date.
 public class RelativeDateProvider: DateProvider {

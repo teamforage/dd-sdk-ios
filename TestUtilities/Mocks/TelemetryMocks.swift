@@ -6,7 +6,7 @@
 
 import Foundation
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 
 public class CoreLoggerMock: CoreLogger {
     private let queue = DispatchQueue(label: "core-logger-mock")

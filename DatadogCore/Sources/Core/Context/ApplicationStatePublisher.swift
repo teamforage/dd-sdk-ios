@@ -6,7 +6,7 @@
 
 #if canImport(UIKit)
 import UIKit
-import DatadogInternal
+import DatadogInternalFork
 
 internal final class ApplicationStatePublisher: ContextValuePublisher {
     typealias Snapshot = AppStateHistory.Snapshot

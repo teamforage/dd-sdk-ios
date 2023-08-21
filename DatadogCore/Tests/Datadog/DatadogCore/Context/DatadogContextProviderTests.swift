@@ -5,7 +5,7 @@
  */
 
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 @testable import DatadogCore
 
 class DatadogContextProviderTests: XCTestCase {

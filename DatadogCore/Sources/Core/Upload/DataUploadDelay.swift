@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 internal protocol Delay {
     var current: TimeInterval { get }

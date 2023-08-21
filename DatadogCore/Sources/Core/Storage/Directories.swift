@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 /// Indicates the main directory for a given instance of the SDK.
 /// Each instance of `DatadogCore` creates its own `CoreDirectory` to manage data for registered Features.
 /// The core directory is created under `/Library/Caches` and uses a name that identifies the certain instance

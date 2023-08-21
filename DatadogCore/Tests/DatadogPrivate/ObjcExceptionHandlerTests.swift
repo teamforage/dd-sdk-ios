@@ -5,7 +5,7 @@
  */
 
 import XCTest
-import DatadogCore
+import DatadogCoreFork
 
 class ObjcExceptionHandlerTests: XCTestCase {
     private let exceptionHandler = __dd_private_ObjcExceptionHandler()

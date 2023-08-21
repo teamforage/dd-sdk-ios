@@ -5,8 +5,8 @@
  */
 
 import Foundation
-import DatadogInternal
-@testable import DatadogCore
+import DatadogInternalFork
+@testable import DatadogCoreFork
 
 /// A `DatadogCoreProtocol` which proxies all calls to the real `DatadogCore` implementation. It intercepts
 /// all events written to the actual core and provides APIs to read their values back for tests.

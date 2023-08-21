@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// Tells if data upload can be performed based on given system conditions.
 internal struct DataUploadConditions {

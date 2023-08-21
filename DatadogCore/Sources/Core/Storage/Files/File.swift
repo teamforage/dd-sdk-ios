@@ -7,7 +7,7 @@
 import Foundation
 
 #if SPM_BUILD
-import DatadogPrivate
+import DatadogPrivateFork
 #endif
 
 /// Provides convenient interface for reading metadata and appending data to the file.

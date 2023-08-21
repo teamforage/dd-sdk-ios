@@ -5,9 +5,9 @@
  */
 
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogTrace
 @testable import DatadogCore
 @testable import DatadogObjc

@@ -6,7 +6,7 @@
 
 import Foundation
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 
 /// Single-Feature core mock is a `PassthroughCoreMock` with the ability to register
 /// a single Feature instance.

@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// The message-bus sends messages to a set of registered receivers.
 ///

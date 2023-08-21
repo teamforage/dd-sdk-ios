@@ -7,7 +7,7 @@
 import Foundation
 
 #if SPM_BUILD
-import DatadogPrivate
+import DatadogPrivateFork
 #endif
 
 /// Exception handler rethrowing `NSExceptions` to Swift `NSError`.

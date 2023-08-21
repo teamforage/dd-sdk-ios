@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 //swiftlint:disable duplicate_imports
 @_exported import enum DatadogInternal.TrackingConsent

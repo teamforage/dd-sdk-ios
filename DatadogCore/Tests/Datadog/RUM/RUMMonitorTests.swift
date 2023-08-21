@@ -7,7 +7,7 @@
 import XCTest
 import UIKit
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
 @testable import DatadogRUM
 @testable import DatadogCrashReporting

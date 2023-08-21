@@ -7,8 +7,8 @@
 import XCTest
 import TestUtilities
 
-@testable import DatadogInternal
-@testable import DatadogLogs
+@testable import DatadogInternalFork
+@testable import DatadogLogsFork
 @testable import DatadogTrace
 @testable import DatadogCore
 

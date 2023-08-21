@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// A type that performs data uploads.
 internal protocol DataUploaderType {

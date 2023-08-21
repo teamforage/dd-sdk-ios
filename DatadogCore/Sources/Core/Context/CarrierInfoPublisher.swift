@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 

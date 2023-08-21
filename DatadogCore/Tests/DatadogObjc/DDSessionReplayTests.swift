@@ -8,7 +8,7 @@
 
 import XCTest
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
 @testable import DatadogObjc
 @testable import DatadogSessionReplay

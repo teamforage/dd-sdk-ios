@@ -6,7 +6,7 @@
 
 import Foundation
 import XCTest
-import DatadogInternal
+import DatadogInternalFork
 
 public struct FeatureMessageReceiverMock: FeatureMessageReceiver {
     public typealias ReceiverClosure = (FeatureMessage) -> Void

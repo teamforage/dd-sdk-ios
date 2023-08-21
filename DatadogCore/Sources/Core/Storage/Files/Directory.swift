@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// An abstraction over file system directory where SDK stores its files.
 internal struct Directory {

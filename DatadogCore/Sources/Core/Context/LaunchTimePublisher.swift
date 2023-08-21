@@ -5,10 +5,10 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 #if SPM_BUILD
-import DatadogPrivate
+import DatadogPrivateFork
 #endif
 
 internal struct LaunchTimePublisher: ContextValuePublisher {
