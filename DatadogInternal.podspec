@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-  s.name         = "DatadogInternal"
+  s.name         = "DatadogInternalFork"
   s.version      = "2.1.0"
-  s.summary      = "Datadog Internal Package. This module is not for public use."
+  s.summary      = "Forage's fork of the Datadog Internal Package. This module is not for public use."
   
   s.homepage     = "https://www.datadoghq.com"
   s.social_media_url   = "https://twitter.com/datadoghq"
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.tvos.deployment_target = '11.0'
 
-  s.source = { :git => "https://github.com/DataDog/dd-sdk-ios.git", :tag => s.version.to_s }
+  s.source = { :git => "https://github.com/teamforage/dd-sdk-ios-fork.git", :tag => s.version.to_s }
   
   s.source_files = ["DatadogInternal/Sources/**/*.swift"]
 
