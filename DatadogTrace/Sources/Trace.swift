@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// An entry point to Datadog Trace feature.
 public struct Trace {

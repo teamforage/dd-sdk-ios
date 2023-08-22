@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// Datadog - specific span tags to be used with `Tracer.shared().startSpan(operationName:references:tags:startTime:)`
 /// and `span.setTag(key:value:)`.

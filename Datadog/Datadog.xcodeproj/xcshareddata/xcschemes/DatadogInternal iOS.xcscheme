@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D23039A4298D513C001A1FA3"
-               BuildableName = "DatadogInternal.framework"
+               BuildableName = "DatadogInternalFork.framework"
                BlueprintName = "DatadogInternal iOS"
                ReferencedContainer = "container:Datadog.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D23039A4298D513C001A1FA3"
-            BuildableName = "DatadogInternal.framework"
+            BuildableName = "DatadogInternalFork.framework"
             BlueprintName = "DatadogInternal iOS"
             ReferencedContainer = "container:Datadog.xcodeproj">
          </BuildableReference>

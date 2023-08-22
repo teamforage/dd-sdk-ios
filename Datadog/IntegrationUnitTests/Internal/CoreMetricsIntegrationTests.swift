@@ -7,7 +7,7 @@
 import XCTest
 @testable import DatadogCore
 @testable import DatadogRUM
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogTrace
 #if !os(tvOS)
 @testable import DatadogSessionReplay

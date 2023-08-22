@@ -5,7 +5,7 @@
  */
 
 import DatadogCore
-import DatadogLogs
+import DatadogLogsFork
 import DatadogRUM
 import DatadogTrace
 import DatadogCrashReporting

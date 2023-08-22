@@ -8,7 +8,7 @@ import XCTest
 import DatadogInternal
 import TestUtilities
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 class LogsTests: XCTestCase {
     func testDefaultConfiguration() {
@@ -44,7 +44,7 @@ class LogsTests: XCTestCase {
 
     func testConfigurationInternalOverrides() throws {
         struct LogEventMapperMock: LogEventMapper {
-            func map(event: DatadogLogs.LogEvent, callback: @escaping (DatadogLogs.LogEvent) -> Void) {
+            func map(event: DatadogLogsFork.LogEvent, callback: @escaping (DatadogLogsFork.LogEvent) -> Void) {
                 callback(event)
             }
         }

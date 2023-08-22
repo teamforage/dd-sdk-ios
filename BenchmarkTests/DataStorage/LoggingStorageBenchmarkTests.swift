@@ -7,7 +7,7 @@
 import XCTest
 import DatadogInternal
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 @testable import DatadogCore
 
 class LoggingStorageBenchmarkTests: XCTestCase {

@@ -5,17 +5,17 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 // Export `DDURLSessionDelegate` elements to be available with `import DatadogTrace`:
 // swiftlint:disable duplicate_imports
-@_exported import class DatadogInternal.DatadogURLSessionDelegate
-@_exported import typealias DatadogInternal.DDURLSessionDelegate
-@_exported import protocol DatadogInternal.__URLSessionDelegateProviding
+@_exported import class DatadogInternalFork.DatadogURLSessionDelegate
+@_exported import typealias DatadogInternalFork.DDURLSessionDelegate
+@_exported import protocol DatadogInternalFork.__URLSessionDelegateProviding
 
-@_exported import class DatadogInternal.HTTPHeadersWriter
-@_exported import class DatadogInternal.B3HTTPHeadersWriter
-@_exported import class DatadogInternal.W3CHTTPHeadersWriter
+@_exported import class DatadogInternalFork.HTTPHeadersWriter
+@_exported import class DatadogInternalFork.B3HTTPHeadersWriter
+@_exported import class DatadogInternalFork.W3CHTTPHeadersWriter
 // swiftlint:enable duplicate_imports
 
 extension Trace {

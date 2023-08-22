@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// Log levels ordered by their severity, with `.debug` being the least severe and
 /// `.critical` being the most severe.
@@ -22,7 +22,7 @@ public enum LogLevel: Int, Codable {
 ///
 /// Usage:
 ///
-///     import DatadogLogs
+///     import DatadogLogsFork
 ///
 ///     // Initialise the Logs module
 ///

@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 internal class DatadogTracer: OTTracer {
     internal weak var core: DatadogCoreProtocol?

@@ -6,7 +6,7 @@
 
 import Foundation
 import TestUtilities
-import DatadogInternal
+import DatadogInternalFork
 
 @testable import DatadogTrace
 

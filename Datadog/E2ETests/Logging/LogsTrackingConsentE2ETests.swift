@@ -5,7 +5,7 @@
  */
 
 import DatadogCore
-import DatadogLogs
+import DatadogLogsFork
 
 class LogsTrackingConsentE2ETests: E2ETests {
     private var logger: LoggerProtocol! // swiftlint:disable:this implicitly_unwrapped_optional

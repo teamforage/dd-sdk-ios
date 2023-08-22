@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 /// The Tracing URL Request Builder for formatting and configuring the `URLRequest`
 /// to upload traces data.

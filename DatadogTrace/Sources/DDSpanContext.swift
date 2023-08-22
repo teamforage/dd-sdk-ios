@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 internal struct DDSpanContext: OTSpanContext {
     /// This span's trace ID.

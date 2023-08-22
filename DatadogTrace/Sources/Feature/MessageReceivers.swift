@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 internal struct CoreContext {
     /// The RUM attributes that should be added as Span tags.

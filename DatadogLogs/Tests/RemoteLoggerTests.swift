@@ -8,7 +8,7 @@ import XCTest
 import TestUtilities
 import DatadogInternal
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 class RemoteLoggerErrorMessageReceiver: FeatureMessageReceiver {
     private var errors: [String] = []

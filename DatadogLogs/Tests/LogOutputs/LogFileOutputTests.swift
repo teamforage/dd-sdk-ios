@@ -6,7 +6,7 @@
 
 import XCTest
 import TestUtilities
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 class LogFileOutputTests: XCTestCase {
     func testItWritesLogs() throws {

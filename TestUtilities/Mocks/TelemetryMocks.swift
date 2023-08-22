@@ -62,7 +62,7 @@ public class TelemetryMock: Telemetry, CustomStringConvertible {
         self.expectation = expectation
     }
 
-    public func send(telemetry: DatadogInternal.TelemetryMessage) {
+    public func send(telemetry: DatadogInternalFork.TelemetryMessage) {
         messages.append(telemetry)
 
         switch telemetry {

@@ -7,7 +7,7 @@
 import XCTest
 import TestUtilities
 import DatadogInternal
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 class LogMessageReceiverTests: XCTestCase {
     func testReceiveIncompleteLogMessage() throws {

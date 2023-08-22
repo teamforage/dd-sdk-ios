@@ -64,7 +64,7 @@ let package = Package(
         ),
 
         .target(
-            name: "TestUtilitiesForkFork",
+            name: "TestUtilitiesFork",
             dependencies: [
                 .target(name: "DatadogInternalFork"),
             ],

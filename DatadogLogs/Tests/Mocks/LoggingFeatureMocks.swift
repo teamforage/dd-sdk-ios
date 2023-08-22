@@ -8,7 +8,7 @@ import Foundation
 import TestUtilities
 import DatadogInternal
 
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 extension LogsFeature {
     /// Mocks an instance of the feature that performs no writes to file system and does no uploads.

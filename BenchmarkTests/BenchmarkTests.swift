@@ -7,7 +7,7 @@
 import XCTest
 import HTTPServerMock
 import DatadogCore
-import DatadogLogs
+import DatadogLogsFork
 import DatadogTrace
 import DatadogRUM
 

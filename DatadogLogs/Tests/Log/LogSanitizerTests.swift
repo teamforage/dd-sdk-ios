@@ -7,7 +7,7 @@
 import XCTest
 import TestUtilities
 import DatadogInternal
-@testable import DatadogLogs
+@testable import DatadogLogsFork
 
 class LogSanitizerTests: XCTestCase {
     /// Tracer Attributes shared with other Feature registered in core.

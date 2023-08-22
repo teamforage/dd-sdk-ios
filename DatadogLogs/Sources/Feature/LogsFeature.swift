@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 internal struct LogsFeature: DatadogRemoteFeature {
     static let name = "logging"

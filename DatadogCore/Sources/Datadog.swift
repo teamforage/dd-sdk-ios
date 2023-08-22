@@ -8,8 +8,8 @@ import Foundation
 import DatadogInternalFork
 
 //swiftlint:disable duplicate_imports
-@_exported import enum DatadogInternal.TrackingConsent
-@_exported import protocol DatadogInternal.DatadogCoreProtocol
+@_exported import enum DatadogInternalFork.TrackingConsent
+@_exported import protocol DatadogInternalFork.DatadogCoreProtocol
 //swiftlint:enable duplicate_imports
 
 /// An entry point to Datadog SDK.

@@ -5,7 +5,7 @@
  */
 
 import UIKit
-import DatadogLogs
+import DatadogLogsFork
 import DatadogCore
 
 class DebugLoggingViewController: UIViewController {

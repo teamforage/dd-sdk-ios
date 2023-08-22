@@ -59,7 +59,7 @@ public class FeatureRegistrationCoreMock: DatadogCoreProtocol {
         // not supported - use different type of core mock if you need thi
     }
 
-    public func send(message: DatadogInternal.FeatureMessage, else fallback: @escaping () -> Void) {
+    public func send(message: DatadogInternalFork.FeatureMessage, else fallback: @escaping () -> Void) {
         // not supported - use different type of core mock if you need this
     }
 }

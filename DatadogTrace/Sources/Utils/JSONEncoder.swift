@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import DatadogInternal
+import DatadogInternalFork
 
 extension JSONEncoder {
     static func `default`() -> JSONEncoder {

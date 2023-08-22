@@ -6,7 +6,7 @@
 
 import Foundation
 import DatadogInternal
-import DatadogLogs
+import DatadogLogsFork
 
 @testable import DatadogCore
 

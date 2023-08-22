@@ -5,7 +5,7 @@
  */
 
 import XCTest
-import DatadogLogs
+import DatadogLogsFork
 
 class LoggingBenchmarkTests: BenchmarkTests {
     private let message = "foobar-message"

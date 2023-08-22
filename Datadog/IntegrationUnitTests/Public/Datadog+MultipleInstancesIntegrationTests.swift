@@ -8,7 +8,7 @@ import XCTest
 import TestUtilities
 @testable import DatadogCore
 import DatadogInternal
-import DatadogLogs
+import DatadogLogsFork
 
 class Datadog_MultipleInstancesIntegrationTests: XCTestCase {
     /// The configuraiton of default instance of SDK.

@@ -6,7 +6,7 @@
 
 import UIKit
 import DatadogCore
-import DatadogLogs
+import DatadogLogsFork
 import DatadogTrace
 import DatadogRUM
 import DatadogCrashReporting
